@@ -39,6 +39,15 @@ def test_tag_case_folded():
     assert [x["title"] for x in n.with_tag("HOME")] == ["a", "b"]
 
 
+def test_untag_only_that_note():
+    n = Notes()
+    n.add("a", tags=["home"])
+    n.add("b", tags=["home"])
+    n.untag(1, "HOME")
+    assert n.get(1)["tags"] == []
+    assert [x["title"] for x in n.with_tag("home")] == ["b"]
+
+
 def test_export_csv_header():
     n = Notes()
     n.add("a", "b", ["t"])

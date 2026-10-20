@@ -30,6 +30,11 @@ class Notes:
         for n in self.items:
             n["tags"] = [new if t == old else t for t in n["tags"]]
 
+    def untag(self, note_id, tag):
+        note = self.get(note_id)
+        if note is not None:
+            note["tags"] = [t for t in note["tags"] if t != tag.lower()]
+
     def export_csv(self):
         out = io.StringIO()
         w = csv.writer(out)
