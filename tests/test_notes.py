@@ -31,6 +31,14 @@ def test_rename_tag():
     assert n.with_tag("home") == []
 
 
+def test_tag_case_folded():
+    n = Notes()
+    n.add("a", tags=["Home"])
+    n.add("b", tags=["home"])
+    assert n.get(1)["tags"] == ["home"]
+    assert [x["title"] for x in n.with_tag("HOME")] == ["a", "b"]
+
+
 def test_export_csv_header():
     n = Notes()
     n.add("a", "b", ["t"])

@@ -8,7 +8,7 @@ class Notes:
         self.items = []
 
     def add(self, title, body="", tags=()):
-        note = {"id": len(self.items) + 1, "title": title, "body": body, "tags": list(tags)}
+        note = {"id": len(self.items) + 1, "title": title, "body": body, "tags": [t.lower() for t in tags]}
         self.items.append(note)
         return note
 
@@ -23,9 +23,10 @@ class Notes:
         return [n for n in self.items if text in n["title"].lower() or text in n["body"].lower()]
 
     def with_tag(self, tag):
-        return [n for n in self.items if tag in n["tags"]]
+        return [n for n in self.items if tag.lower() in n["tags"]]
 
     def rename_tag(self, old, new):
+        old, new = old.lower(), new.lower()
         for n in self.items:
             n["tags"] = [new if t == old else t for t in n["tags"]]
 
