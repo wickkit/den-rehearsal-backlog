@@ -21,6 +21,16 @@ def test_with_tag():
     assert [x["title"] for x in n.with_tag("home")] == ["a"]
 
 
+def test_rename_tag():
+    n = Notes()
+    n.add("a", tags=["home"])
+    n.add("b", tags=["home", "work"])
+    n.add("c", tags=["work"])
+    n.rename_tag("home", "house")
+    assert [x["title"] for x in n.with_tag("house")] == ["a", "b"]
+    assert n.with_tag("home") == []
+
+
 def test_export_csv_header():
     n = Notes()
     n.add("a", "b", ["t"])

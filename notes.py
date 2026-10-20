@@ -25,6 +25,10 @@ class Notes:
     def with_tag(self, tag):
         return [n for n in self.items if tag in n["tags"]]
 
+    def rename_tag(self, old, new):
+        for n in self.items:
+            n["tags"] = [new if t == old else t for t in n["tags"]]
+
     def export_csv(self):
         out = io.StringIO()
         w = csv.writer(out)
