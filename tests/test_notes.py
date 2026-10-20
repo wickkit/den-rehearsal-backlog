@@ -1,3 +1,4 @@
+import pytest
 from notes import Notes
 
 
@@ -46,6 +47,14 @@ def test_untag_only_that_note():
     n.untag(1, "HOME")
     assert n.get(1)["tags"] == []
     assert [x["title"] for x in n.with_tag("home")] == ["b"]
+
+
+def test_empty_tag_rejected():
+    n = Notes()
+    for bad in ("", "   "):
+        with pytest.raises(ValueError):
+            n.add("a", tags=[bad])
+    assert n.items == []
 
 
 def test_export_csv_header():

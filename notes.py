@@ -8,6 +8,8 @@ class Notes:
         self.items = []
 
     def add(self, title, body="", tags=()):
+        if any(not t.strip() for t in tags):
+            raise ValueError("tag must not be empty")
         note = {"id": len(self.items) + 1, "title": title, "body": body, "tags": [t.lower() for t in tags]}
         self.items.append(note)
         return note
