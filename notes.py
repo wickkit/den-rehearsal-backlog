@@ -37,6 +37,13 @@ class Notes:
         if note is not None:
             note["tags"] = [t for t in note["tags"] if t != tag.lower()]
 
+    def tag_counts(self):
+        counts = {}
+        for n in self.items:
+            for t in n["tags"]:
+                counts[t] = counts.get(t, 0) + 1
+        return counts
+
     def export_csv(self):
         out = io.StringIO()
         w = csv.writer(out)

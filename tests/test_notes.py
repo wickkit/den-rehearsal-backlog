@@ -57,6 +57,14 @@ def test_empty_tag_rejected():
     assert n.items == []
 
 
+def test_tag_counts():
+    n = Notes()
+    n.add("a", tags=["home", "work"])
+    n.add("b", tags=["home"])
+    n.add("c", tags=["Home"])
+    assert n.tag_counts() == {"home": 3, "work": 1}
+
+
 def test_export_csv_header():
     n = Notes()
     n.add("a", "b", ["t"])
